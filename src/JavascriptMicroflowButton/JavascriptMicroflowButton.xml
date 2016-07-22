@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="JavascriptMicroflowButton.widget.JavascriptMicroflowButton" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>JavascriptMicroflowButton</name>
+    <description>The description of this widget.</description>
+
+    <icon />
+
+    <properties>
+		<property key="contenttype" type="enumeration" defaultValue="js">
+            <caption>Content Type</caption>
+            <category>Behavior</category>
+            <description>Defines whether this widget provides the JQuery library.
+            </description>
+            <enumerationValues>
+                <enumerationValue key="js">JavaScript</enumerationValue>
+                <enumerationValue key="jsjQuery">JavaScript with jQuery</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="jsToExecute" type="string" multiline="true" required="true" defaultValue="">
+            <caption>JavaScript</caption>
+            <category>Appearance</category>
+            <description>The javascript to execute.</description>
+        </property>
+        <property key="mfToExecute" type="microflow" required="false">
+            <caption>Microflow</caption>
+            <category>Behavior</category>
+            <description>The microflow to execute after the javascript.</description>
+            <returnType type="Void" />
+        </property>
+		<property key="buttonText" type="string" required="false" defaultValue="">
+            <caption>Button Text</caption>
+            <category>Appearance</category>
+            <description>The text of the button.</description>
+        </property>
+		<property key="buttonClass" type="string" required="false" defaultValue="">
+            <caption>Button CSS Class</caption>
+            <category>Appearance</category>
+            <description>The CSS class(es) to be added to the button. Seperate multiple classes with spaces.</description>
+        </property>
+		<property key="confirmation" type="boolean" defaultValue="false">
+            <caption>Prompt for confirmation</caption>
+            <category>Behavior</category>
+            <description>The text of the button.</description>
+        </property>
+		<property key="confirmQuestion" type="string" required="false" defaultValue="Are you sure?">
+            <caption>Confirm Question</caption>
+            <category>Behavior</category>
+            <description>The confirmation question</description>
+        </property>		
+		<property key="okButton" type="string" required="false" defaultValue="Proceed">
+            <caption>Proceed Text</caption>
+            <category>Behavior</category>
+            <description>The "proceed" or "ok" button label.</description>
+        </property>			
+		<property key="cancelButton" type="string" required="false" defaultValue="Cancel">
+            <caption>Cancel Text</caption>
+            <category>Behavior</category>
+            <description>The "cancel" button label.</description>
+        </property>		
+    </properties>
+</widget>
+
