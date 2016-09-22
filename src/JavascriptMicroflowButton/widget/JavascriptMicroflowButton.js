@@ -5,10 +5,10 @@
     ========================
 
     @file      : JavascriptMicroflowButton.js
-    @version   : 
+    @version   :
     @author    : Eric Tieniber
     @date      : Mon, 25 Jan 2016 17:22:29 GMT
-    @copyright : 
+    @copyright :
     @license   : Apache 2
 
     Documentation
@@ -40,7 +40,7 @@ define([
 	"JavascriptMicroflowButton/lib/jquery-1.11.2"
 ], function (declare, _WidgetBase, _TemplatedMixin, dom, dojoDom, dojoProp, dojoGeometry, dojoClass, dojoStyle, dojoConstruct, dojoArray, dojoLang, dojoText, dojoHtml, dojoEvent, dojoRegistry, dojoQuery, widgetTemplate, _jQuery) {
     "use strict";
-	
+
 	var $ = _jQuery.noConflict(true);
 
     // Declare widget's prototype.
@@ -61,7 +61,8 @@ define([
 		confirmQuestion: "",
 		okButton: "",
 		cancelButton: "",
-		
+		buttonTabIndex: 0,
+
 		//Internal variables
 		_contextObj: null,
 		_listener: null,
@@ -69,7 +70,7 @@ define([
         // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
         update: function (obj, callback) {
             logger.debug(this.id + ".update");
-            
+
 			this._contextObj = obj;
             this._setupEvents();
 			this._updateRendering();
@@ -81,17 +82,19 @@ define([
         _updateRendering: function () {
             logger.debug(this.id + "._updateRendering");
 			this.theButton.innerHTML = this.buttonText;
-			
+
+			this.theButton.setAttribute("tabIndex", this.buttonTabIndex);
+
 			if (this.buttonClass !== "") {
 				dojoClass.add(this.theButton, this.buttonClass);
 			}
         },
-		
+
 		_setupEvents: function () {
 			if (this._listener) {
 				this.disconnect(this._listener);
 			}
-			
+
 			if (this.confirmation) {
 				if (this.jsToExecute) {
 					this._listener = this.connect(this.theButton, "click", this._confirm(this._executeJS));
@@ -106,7 +109,7 @@ define([
 				}
 			}
 		},
-		
+
 		_confirm: function (callback) {
 			return function () {
 				mx.ui.confirmation({

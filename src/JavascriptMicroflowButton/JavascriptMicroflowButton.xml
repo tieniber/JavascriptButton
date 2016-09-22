@@ -37,6 +37,11 @@
             <category>Appearance</category>
             <description>The CSS class(es) to be added to the button. Seperate multiple classes with spaces.</description>
         </property>
+		<property key="buttonTabIndex" type="string" required="true" defaultValue="0">
+            <caption>Button Tab Index</caption>
+            <category>Appearance</category>
+            <description>The tab index of the button.</description>
+        </property>
 		<property key="confirmation" type="boolean" defaultValue="false">
             <caption>Prompt for confirmation</caption>
             <category>Behavior</category>
@@ -46,17 +51,16 @@
             <caption>Confirm Question</caption>
             <category>Behavior</category>
             <description>The confirmation question</description>
-        </property>		
+        </property>
 		<property key="okButton" type="string" required="false" defaultValue="Proceed">
             <caption>Proceed Text</caption>
             <category>Behavior</category>
             <description>The "proceed" or "ok" button label.</description>
-        </property>			
+        </property>
 		<property key="cancelButton" type="string" required="false" defaultValue="Cancel">
             <caption>Cancel Text</caption>
             <category>Behavior</category>
             <description>The "cancel" button label.</description>
-        </property>		
+        </property>
     </properties>
 </widget>
-
