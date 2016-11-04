@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<widget id="JavascriptMicroflowButton.widget.JavascriptMicroflowButton" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
-    <name>JavascriptMicroflowButton</name>
+<widget id="JavaScriptButton.widget.JavaScriptButton" needsEntityContext="false" offlineCapable="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>JavaScriptButton</name>
     <description>The description of this widget.</description>
 
     <icon />
@@ -20,12 +20,6 @@
             <caption>JavaScript</caption>
             <category>Appearance</category>
             <description>The javascript to execute.</description>
-        </property>
-        <property key="mfToExecute" type="microflow" required="false">
-            <caption>Microflow</caption>
-            <category>Behavior</category>
-            <description>The microflow to execute after the javascript.</description>
-            <returnType type="Void" />
         </property>
 		<property key="buttonText" type="string" required="false" defaultValue="">
             <caption>Button Text</caption>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <package xmlns="http://www.mendix.com/package/1.0/">
-    <clientModule name="JavascriptMicroflowButton" version="0.1" xmlns="http://www.mendix.com/clientModule/1.0/">
+    <clientModule name="JavaScriptButton" version="0.1" xmlns="http://www.mendix.com/clientModule/1.0/">
         <widgetFiles>
-            <widgetFile path="JavascriptMicroflowButton/JavascriptMicroflowButton.xml" />
+            <widgetFile path="JavaScriptButton/JavaScriptButton.xml" />
+			<widgetFile path="JavaScriptButton/JavaScriptMicroflowButton.xml" />
         </widgetFiles>
         <files>
-            <file path="JavascriptMicroflowButton/widget/" />
+            <file path="JavaScriptButton/widget/" />
         </files>
     </clientModule>
 </package>
