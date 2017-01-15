@@ -18,7 +18,7 @@
         </property>
         <property key="jsToExecute" type="string" multiline="true" required="true" defaultValue="">
             <caption>JavaScript</caption>
-            <category>Appearance</category>
+            <category>Behavior</category>
             <description>The javascript to execute.</description>
         </property>
 		<property key="buttonText" type="string" required="false" defaultValue="">

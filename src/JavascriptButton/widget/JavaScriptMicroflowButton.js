@@ -1,9 +1,9 @@
 require([
     "dojo/_base/declare", "JavaScriptButton/widget/JavaScriptButton"
 ], function(declare, _jsButtonWidget) {
-    return declare("JavaScriptButton.widget.JavascriptMicroflowButton", [_jsButtonWidget], {
+    return declare("JavaScriptButton.widget.JavaScriptMicroflowButton", [_jsButtonWidget], {
     })
 });
-require(["JavaScriptButton/widget/JavascriptMicroflowButton"], function() {
+require(["JavaScriptButton/widget/JavaScriptMicroflowButton"], function() {
     "use strict";
 });

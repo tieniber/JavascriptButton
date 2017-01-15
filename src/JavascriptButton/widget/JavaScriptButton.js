@@ -1,10 +1,10 @@
 /*global logger, define, require, alert, mx*/
 /*jslint nomen:true, evil:true*/
 /*
-    JavascriptButton
+    JavaScriptButton
     ========================
 
-    @file      : JavascriptButton.js
+    @file      : JavaScriptButton.js
     @version   :
     @author    : Eric Tieniber
     @date      : Thu, 3 Nov 2016 17:22:29 GMT
@@ -13,7 +13,7 @@
 
     Documentation
     ========================
-    A Mendix button that runs some custom Javascript as defined in the modeler.
+    A Mendix button that runs some custom JavaScript as defined in the modeler.
 */
 
 // Required module list. Remove unnecessary modules, you can always get them back from the boilerplate.
