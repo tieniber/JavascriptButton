@@ -20,6 +20,23 @@ Does not require a context object.
 Renders a button, and allows you to run some custom JS on click of that button. After the JS executes, a microflow is also called.
 Requires a context object.
 
+In this button, you can get a reference to the context object by using:
+
+```
+this._contextObj
+```
+
+You can get the data in an attribute of your context entity like this:
+```
+var myValue = this._contextObj.get("AttributeName");
+```
+
+And you can set the data in an attribute of your contenxt entity like this:
+```
+this._contextObj.set("AttributeName", newValue);
+```
+
+
 ## Configurations
 
 Both widgets have similar properties, with the exception of the microflow that can be selected for the JS Microflow Buttton:
