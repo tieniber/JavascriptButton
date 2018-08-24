@@ -43,7 +43,8 @@ define([
 
         // Parameters configured in the Modeler.
         contenttype: "",
-        jsToExecute: "",
+		jsToExecute: "",
+		jsToExecuteAfter: "",
 		mfToExecute: "",
 		buttonClass: "",
 		buttonText:	 "",
@@ -87,13 +88,13 @@ define([
 
 			if (this.confirmation) {
 				if (this.jsToExecute) {
-					this._listener = this.connect(this.theButton, "click", this._confirm(this._executeJS));
+					this._listener = this.connect(this.theButton, "click", this._confirm(this._executeJSBefore));
 				} else if (this.mfToExecute) {
 					this._listener = this.connect(this.theButton, "click", this._confirm(this._executeMicroflow));
 				}
 			} else {
 				if (this.jsToExecute) {
-					this._listener = this.connect(this.theButton, "click", this._executeJS);
+					this._listener = this.connect(this.theButton, "click", this._executeJSBefore);
 				} else if (this.mfToExecute) {
 					this._listener = this.connect(this.theButton, "click", this._executeMicroflow);
 				}
@@ -123,8 +124,10 @@ define([
 					},
 					origin: this.mxform,
 					callback: function (obj) {
-						//TODO what to do when all is ok!
-					},
+						if (this.jsToExecuteAfter) {
+							this._executeJSAfter();
+						}
+					}.bind(this),
 					error: dojoLang.hitch(this, function (error) {
 						logger.error(this.id + ": An error occurred while executing microflow: " + error.description);
 					})
@@ -132,21 +135,29 @@ define([
 			}
 		},
 
-		_executeJS: function() {
+		_executeJSBefore: function() {
+			this._executeJS(this.jsToExecute);
+			if (this.mfToExecute) {
+				this._executeMicroflow();
+			}
+		},
+		_executeJSAfter: function() {
+			this._executeJS(this.jsToExecuteAfter);
+		},
+		_executeJS: function(js) {
 			if (this.contenttype == "jsjQuery") {
-				require(["JavaScriptButton/lib/jquery-1.11.2"], dojoLang.hitch(this, this._evalJS));
+				require(["JavaScriptButton/lib/jquery-1.11.2"], this._evalJS.bind(this,js));
 			} else {
-				this._evalJS();
+				this._evalJS(js);
 			}
 		},
 
-		_evalJS: function () {
+		_evalJS: function (js) {
 			try {
-				eval(this.jsToExecute + "\r\n//# sourceURL=" + this.id + ".js");
+				eval(js + "\r\n//# sourceURL=" + this.id + ".js");
 			} catch (e) {
 				dojoConstruct.place("<div class=\"alert alert-danger\">Error while evaluating javascript input: " + e + "</div>", this.domNode, "only");
 			}
-			this._executeMicroflow();
 		}
 
 

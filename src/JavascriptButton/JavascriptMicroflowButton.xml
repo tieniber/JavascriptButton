@@ -17,9 +17,9 @@
             </enumerationValues>
         </property>
         <property key="jsToExecute" type="string" multiline="true" required="true" defaultValue="">
-            <caption>JavaScript</caption>
+            <caption>JavaScript before microflow</caption>
             <category>Behavior</category>
-            <description>The javascript to execute.</description>
+            <description>The javascript to execute before the microflow.</description>
         </property>
         <property key="mfToExecute" type="microflow" required="false">
             <caption>Microflow</caption>
@@ -27,6 +27,11 @@
             <description>The microflow to execute after the javascript.</description>
             <returnType type="Void" />
         </property>
+        <property key="jsToExecuteAfter" type="string" multiline="true" required="false" defaultValue="">
+            <caption>JavaScript after microflow</caption>
+            <category>Behavior</category>
+            <description>The javascript to execute after the microflow.</description>
+        </property>        
 		<property key="buttonText" type="string" required="false" defaultValue="">
             <caption>Button Text</caption>
             <category>Appearance</category>
