@@ -17,7 +17,8 @@ Does not require a context object.
 
 ### JavaScript Microflow Button
 
-Renders a button, and allows you to run some custom JS on click of that button. After the JS executes, a microflow is also called.
+Renders a button, and allows you to run some custom JS on click of that button. After the JS executes, a microflow is also called. Custom JS can also be run after the microflow.
+
 Requires a context object.
 
 In this button, you can get a reference to the context object by using:
