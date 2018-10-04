@@ -18,36 +18,37 @@
 
 // Required module list. Remove unnecessary modules, you can always get them back from the boilerplate.
 define([
-    "dojo/_base/declare",
-    "mxui/widget/_WidgetBase",
-    "dijit/_TemplatedMixin",
+	"dojo/_base/declare",
+	"mxui/widget/_WidgetBase",
+	"dijit/_TemplatedMixin",
 
-    "dojo/dom-class",
-    "dojo/dom-construct",
-    "dojo/_base/lang",
-    "dojo/text",
-    "dojo/_base/event",
+	"dojo/dom-class",
+	"dojo/dom-construct",
+	"dojo/_base/lang",
+	"dojo/text",
+	"dojo/_base/event",
 	"dijit/registry",
 	"dojo/query",
-    "dojo/text!JavaScriptButton/widget/template/JavaScriptButton.html"
+	"dojo/text!JavaScriptButton/widget/template/JavaScriptButton.html"
 ], function (declare, _WidgetBase, _TemplatedMixin, dojoClass, dojoConstruct, dojoLang, dojoText, dojoEvent, dojoRegistry, dojoQuery, widgetTemplate) {
-    "use strict";
+	"use strict";
 
-    // Declare widget's prototype.
-    return declare("JavaScriptButton.widget.JavaScriptButton", [ _WidgetBase, _TemplatedMixin ], {
-        // _TemplatedMixin will create our dom node using this HTML template.
-        templateString: widgetTemplate,
+	// Declare widget's prototype.
+	return declare("JavaScriptButton.widget.JavaScriptButton", [_WidgetBase, _TemplatedMixin], {
+		// _TemplatedMixin will create our dom node using this HTML template.
+		templateString: widgetTemplate,
 
-        // DOM elements
-        theButton: null,
+		// DOM elements
+		theButton: null,
 
-        // Parameters configured in the Modeler.
-        contenttype: "",
+		// Parameters configured in the Modeler.
+		contenttype: "",
 		jsToExecute: "",
 		jsToExecuteAfter: "",
 		mfToExecute: "",
+		nfToExecute: "",
 		buttonClass: "",
-		buttonText:	 "",
+		buttonText: "",
 		confirmation: false,
 		confirmQuestion: "",
 		okButton: "",
@@ -58,20 +59,20 @@ define([
 		_contextObj: null,
 		_listener: null,
 
-        // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
-        update: function (obj, callback) {
-            logger.debug(this.id + ".update");
+		// mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
+		update: function (obj, callback) {
+			logger.debug(this.id + ".update");
 
 			this._contextObj = obj;
-            this._setupEvents();
+			this._setupEvents();
 			this._updateRendering();
 
-            callback();
-        },
+			callback();
+		},
 
-        // Rerender the interface.
-        _updateRendering: function () {
-            logger.debug(this.id + "._updateRendering");
+		// Rerender the interface.
+		_updateRendering: function () {
+			logger.debug(this.id + "._updateRendering");
 			this.theButton.innerHTML = this.buttonText;
 
 			this.theButton.setAttribute("tabIndex", this.buttonTabIndex);
@@ -79,7 +80,7 @@ define([
 			if (this.buttonClass !== "") {
 				dojoClass.add(this.theButton, this.buttonClass);
 			}
-        },
+		},
 
 		_setupEvents: function () {
 			if (this._listener) {
@@ -91,12 +92,16 @@ define([
 					this._listener = this.connect(this.theButton, "click", this._confirm(this._executeJSBefore));
 				} else if (this.mfToExecute) {
 					this._listener = this.connect(this.theButton, "click", this._confirm(this._executeMicroflow));
+				} else if (this.nfToExecute) {
+					this._listener = this.connect(this.theButton, "click", this._confirm(this._executeNanoflow));
 				}
 			} else {
 				if (this.jsToExecute) {
 					this._listener = this.connect(this.theButton, "click", this._executeJSBefore);
 				} else if (this.mfToExecute) {
 					this._listener = this.connect(this.theButton, "click", this._executeMicroflow);
+				} else if (this.nfToExecute) {
+					this._listener = this.connect(this.theButton, "click", this._executeNanoflow);
 				}
 			}
 		},
@@ -120,7 +125,7 @@ define([
 					params: {
 						applyto: "selection",
 						//actionname: this.mfToExecute,
-						guids: [ this._contextObj.getGuid() ]
+						guids: [this._contextObj.getGuid()]
 					},
 					origin: this.mxform,
 					callback: function (obj) {
@@ -135,18 +140,36 @@ define([
 			}
 		},
 
-		_executeJSBefore: function() {
+		_executeNanoflow: function () {
+			mx.data.callNanoflow({
+				nanoflow: this.nfToExecute,
+				origin: this.mxform,
+				context: this.mxcontext,
+				callback: function (result) {
+					if (this.jsToExecuteAfter) {
+						this._executeJSAfter();
+					}
+				}.bind(this),
+				error: function (error) {
+					console.error(error.message);
+				}
+			});
+		},
+
+		_executeJSBefore: function () {
 			this._executeJS(this.jsToExecute);
 			if (this.mfToExecute) {
 				this._executeMicroflow();
+			} else if (this.nfToExecute) {
+				this._executeNanoflow();
 			}
 		},
-		_executeJSAfter: function() {
+		_executeJSAfter: function () {
 			this._executeJS(this.jsToExecuteAfter);
 		},
-		_executeJS: function(js) {
+		_executeJS: function (js) {
 			if (this.contenttype == "jsjQuery") {
-				require(["JavaScriptButton/lib/jquery-1.11.2"], this._evalJS.bind(this,js));
+				require(["JavaScriptButton/lib/jquery-1.11.2"], this._evalJS.bind(this, js));
 			} else {
 				this._evalJS(js);
 			}
@@ -165,5 +188,5 @@ define([
 });
 
 require(["JavaScriptButton/widget/JavaScriptButton"], function () {
-    "use strict";
+	"use strict";
 });
