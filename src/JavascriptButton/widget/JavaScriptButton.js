@@ -58,9 +58,38 @@ define([
 		_contextObj: null,
 		_listener: null,
 
+		
+        /**
+         * @param  {...any} args
+         */
+		 log(...args) {
+            if (this.id) {
+                args.unshift(this.id);
+            }
+            if (mx && mx.logger && mx.logger.debug) {
+                mx.logger.debug.apply(mx.logger, args);
+            } else {
+                logger.debug.apply(logger, args);
+            }
+        },
+
+        /**
+         * @param  {...any} args
+         */
+        error(...args) {
+            if (this.id) {
+                args.unshift(this.id);
+            }
+            if (mx && mx.logger && mx.logger.error) {
+                mx.logger.error.apply(mx.logger, args);
+            } else {
+                logger.error.apply(logger, args);
+            }
+        },
+
         // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
         update: function (obj, callback) {
-            logger.debug(this.id + ".update");
+            this.log(".update");
 
 			this._contextObj = obj;
             this._setupEvents();
@@ -71,7 +100,7 @@ define([
 
         // Rerender the interface.
         _updateRendering: function () {
-            logger.debug(this.id + "._updateRendering");
+            this.log("._updateRendering");
 			this.theButton.innerHTML = this.buttonText;
 
 			this.theButton.setAttribute("tabIndex", this.buttonTabIndex);
@@ -129,7 +158,7 @@ define([
 						}
 					}.bind(this),
 					error: dojoLang.hitch(this, function (error) {
-						logger.error(this.id + ": An error occurred while executing microflow: " + error.description);
+						this.error(": An error occurred while executing microflow: " + error.description);
 					})
 				}, this);
 			}
