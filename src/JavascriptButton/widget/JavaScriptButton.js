@@ -59,10 +59,8 @@ define([
 		_listener: null,
 
 		
-        /**
-         * @param  {...any} args
-         */
-		 log(...args) {
+        log() {
+            var args = Array.prototype.slice.call(arguments);
             if (this.id) {
                 args.unshift(this.id);
             }
@@ -76,7 +74,8 @@ define([
         /**
          * @param  {...any} args
          */
-        error(...args) {
+        error() {
+            var args = Array.prototype.slice.call(arguments);
             if (this.id) {
                 args.unshift(this.id);
             }
