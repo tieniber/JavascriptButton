@@ -142,25 +142,23 @@ define([
 		},
 
 		_executeMicroflow: function () {
-			if (this.mfToExecute) {
-				mx.ui.action(this.mfToExecute, {
-					progress: "nonmodal",
-					progressMsg: "",
+			if (this.mfToExecute && this._contextObj) {
+				mx.data.action({
 					params: {
+						actionname: this.mfToExecute,
 						applyto: "selection",
-						//actionname: this.mfToExecute,
 						guids: [ this._contextObj.getGuid() ]
 					},
 					origin: this.mxform,
-					callback: function (obj) {
+					callback: dojoLang.hitch(this, function (obj) {
 						if (this.jsToExecuteAfter) {
 							this._executeJSAfter();
 						}
-					}.bind(this),
+					}),
 					error: dojoLang.hitch(this, function (error) {
 						this.error(": An error occurred while executing microflow: " + error.description);
 					})
-				}, this);
+				});
 			}
 		},
 
