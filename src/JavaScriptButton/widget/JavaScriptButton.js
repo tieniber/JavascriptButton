@@ -24,13 +24,12 @@ define([
 
     "dojo/dom-class",
     "dojo/dom-construct",
-    "dojo/_base/lang",
     "dojo/text",
     "dojo/_base/event",
     "dijit/registry",
     "dojo/query",
     "dojo/text!JavaScriptButton/widget/template/JavaScriptButton.html"
-], function (declare, _WidgetBase, _TemplatedMixin, dojoClass, dojoConstruct, dojoLang, dojoText, dojoEvent, dojoRegistry, dojoQuery, widgetTemplate) {
+], function (declare, _WidgetBase, _TemplatedMixin, dojoClass, dojoConstruct, dojoText, dojoEvent, dojoRegistry, dojoQuery, widgetTemplate) {
     "use strict";
 
     // Declare widget's prototype.
@@ -108,7 +107,7 @@ define([
                     content: this.confirmQuestion,
                     proceed: this.okButton,
                     cancel: this.cancelButton,
-                    handler: dojoLang.hitch(this, callback)
+                    handler: callback.bind(this)
                 });
             };
         },
@@ -129,10 +128,10 @@ define([
                             this._executeJSAfter();
                         }
                     }.bind(this),
-                    error: dojoLang.hitch(this, function (error) {
+                    error: function (error) {
                         this._hideProgressBar();
                         this._getLogger().error(this.id + ": An error occurred while executing microflow: " + error.description);
-                    })
+                    }.bind(this)
                 });
             }
         },
