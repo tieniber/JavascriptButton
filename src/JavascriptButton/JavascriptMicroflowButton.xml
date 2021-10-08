@@ -6,7 +6,7 @@
     <icon />
 
     <properties>
-		<property key="contenttype" type="enumeration" defaultValue="js">
+        <property key="contenttype" type="enumeration" defaultValue="js">
             <caption>Content Type</caption>
             <category>Behavior</category>
             <description>Defines whether this widget provides the JQuery library.
@@ -32,37 +32,37 @@
             <category>Behavior</category>
             <description>The javascript to execute after the microflow.</description>
         </property>        
-		<property key="buttonText" type="string" required="false" defaultValue="">
+        <property key="buttonText" type="string" required="false" defaultValue="">
             <caption>Button Text</caption>
             <category>Appearance</category>
             <description>The text of the button.</description>
         </property>
-		<property key="buttonClass" type="string" required="false" defaultValue="">
+        <property key="buttonClass" type="string" required="false" defaultValue="">
             <caption>Button CSS Class</caption>
             <category>Appearance</category>
             <description>The CSS class(es) to be added to the button. Seperate multiple classes with spaces.</description>
         </property>
-		<property key="buttonTabIndex" type="string" required="true" defaultValue="0">
+        <property key="buttonTabIndex" type="string" required="true" defaultValue="0">
             <caption>Button Tab Index</caption>
             <category>Appearance</category>
             <description>The tab index of the button.</description>
         </property>
-		<property key="confirmation" type="boolean" defaultValue="false">
+        <property key="confirmation" type="boolean" defaultValue="false">
             <caption>Prompt for confirmation</caption>
             <category>Behavior</category>
             <description>The text of the button.</description>
         </property>
-		<property key="confirmQuestion" type="string" required="false" defaultValue="Are you sure?">
+        <property key="confirmQuestion" type="string" required="false" defaultValue="Are you sure?">
             <caption>Confirm Question</caption>
             <category>Behavior</category>
             <description>The confirmation question</description>
         </property>
-		<property key="okButton" type="string" required="false" defaultValue="Proceed">
+        <property key="okButton" type="string" required="false" defaultValue="Proceed">
             <caption>Proceed Text</caption>
             <category>Behavior</category>
             <description>The "proceed" or "ok" button label.</description>
         </property>
-		<property key="cancelButton" type="string" required="false" defaultValue="Cancel">
+        <property key="cancelButton" type="string" required="false" defaultValue="Cancel">
             <caption>Cancel Text</caption>
             <category>Behavior</category>
             <description>The "cancel" button label.</description>
