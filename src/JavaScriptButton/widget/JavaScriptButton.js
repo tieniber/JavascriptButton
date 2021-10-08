@@ -57,6 +57,7 @@ define([
         //Internal variables
         _contextObj: null,
         _listener: null,
+        _progressId: null,
 
         // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
         update: function (obj, callback) {
@@ -113,25 +114,26 @@ define([
         },
 
         _executeMicroflow: function () {
-            if (this.mfToExecute) {
-                mx.ui.action(this.mfToExecute, {
-                    progress: "nonmodal",
-                    progressMsg: "",
+            if (this.mfToExecute && this._contextObj) {
+                this._showProgressBar();
+                mx.data.action({
                     params: {
+                        actionname: this.mfToExecute,
                         applyto: "selection",
-                        //actionname: this.mfToExecute,
                         guids: [ this._contextObj.getGuid() ]
                     },
                     origin: this.mxform,
-                    callback: function (obj) {
+                    callback: function () {
+                        this._hideProgressBar();
                         if (this.jsToExecuteAfter) {
                             this._executeJSAfter();
                         }
                     }.bind(this),
                     error: dojoLang.hitch(this, function (error) {
+                        this._hideProgressBar();
                         logger.error(this.id + ": An error occurred while executing microflow: " + error.description);
                     })
-                }, this);
+                });
             }
         },
 
@@ -160,6 +162,18 @@ define([
             } catch (e) {
                 dojoConstruct.place("<div class=\"alert alert-danger\">Error while evaluating javascript input: " + e + "</div>", this.domNode, "only");
             }
+        },
+
+        _hideProgressBar: function() {
+            if (this._progressId) {
+                mx.ui.hideProgress(this._progressId);
+                this._progressId = null;
+            }
+        },
+
+        _showProgressBar: function() {
+            this._hideProgressBar();
+            this._progressId = mx.ui.showProgress("", false);
         }
     });
 });
